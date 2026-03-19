@@ -4,7 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import cz.cvut.fel.flagie.ui.screens.UserScreen
+import cz.cvut.fel.flagie.navigation.MainNavGraph
 import cz.cvut.fel.flagie.ui.theme.FlagieTheme
 
 class MainActivity : ComponentActivity() {
@@ -13,7 +13,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             FlagieTheme {
-                UserScreen()
+                MainNavGraph()
             }
         }
     }
