@@ -61,4 +61,13 @@ dependencies {
 
     implementation(libs.androidx.navigation.compose)
     implementation(libs.kotlinx.serialization.json)
+
+    // Ktor (Tady jsem přidal Core a ContentNegotiation)
+    implementation(libs.ktor.client.core)           // <--- DŮLEŽITÉ
+    implementation(libs.ktor.client.okhttp)
+    implementation(libs.ktor.client.content.negotiation) // Pro JSON (viz libs.versions.toml)
+    implementation(libs.ktor.serialization.kotlinx.json) // Pro JSON (viz libs.versions.toml)
+
+    // Coroutines
+    implementation(libs.kotlinx.coroutines.android)
 }
