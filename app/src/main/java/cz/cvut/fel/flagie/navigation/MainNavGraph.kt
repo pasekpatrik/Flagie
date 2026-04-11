@@ -12,10 +12,10 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 
 import cz.cvut.fel.flagie.ui.components.MainBottomBar
-import cz.cvut.fel.flagie.ui.screens.GameScreen
-import cz.cvut.fel.flagie.ui.screens.SettingScreen
-import cz.cvut.fel.flagie.ui.screens.StudyScreen
-import cz.cvut.fel.flagie.ui.screens.UserScreen
+import cz.cvut.fel.flagie.ui.screens.game.GameScreen
+import cz.cvut.fel.flagie.ui.screens.setting.SettingScreen
+import cz.cvut.fel.flagie.ui.screens.study.StudyScreen
+import cz.cvut.fel.flagie.ui.screens.user.UserScreen
 
 @Composable
 fun MainNavGraph() {

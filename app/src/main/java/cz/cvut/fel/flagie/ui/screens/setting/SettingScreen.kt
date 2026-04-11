@@ -1,4 +1,4 @@
-package cz.cvut.fel.flagie.ui.screens
+package cz.cvut.fel.flagie.ui.screens.setting
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
