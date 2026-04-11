@@ -13,6 +13,8 @@ import androidx.navigation.compose.rememberNavController
 
 import cz.cvut.fel.flagie.ui.components.MainBottomBar
 import cz.cvut.fel.flagie.ui.screens.GameScreen
+import cz.cvut.fel.flagie.ui.screens.SettingScreen
+import cz.cvut.fel.flagie.ui.screens.StudyScreen
 import cz.cvut.fel.flagie.ui.screens.UserScreen
 
 @Composable
@@ -44,6 +46,8 @@ fun MainNavGraph() {
         ) {
             composable<GameScreen> { GameScreen() }
             composable<UserScreen> { UserScreen() }
+            composable<StudyScreen> { StudyScreen() }
+            composable<SettingScreen> { SettingScreen() }
         }
     }
 }

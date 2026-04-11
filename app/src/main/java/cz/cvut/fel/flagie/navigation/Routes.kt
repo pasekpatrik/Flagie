@@ -9,6 +9,12 @@ data object GameScreen
 @Serializable
 data object UserScreen
 
+@Serializable
+data object StudyScreen
+
+@Serializable
+data object SettingScreen
+
 data class NavBarItem(
     val route: Any,
     val label: String,
@@ -17,5 +23,7 @@ data class NavBarItem(
 
 val mainNavBarItems = listOf(
     NavBarItem(GameScreen,     "Game",     R.drawable.gamepad_24),
+    NavBarItem(StudyScreen, "Study", R.drawable.book_24),
     NavBarItem(UserScreen,     "User",   R.drawable.person_24 ),
+    NavBarItem(SettingScreen, "Setting", R.drawable.settings_24)
 )
