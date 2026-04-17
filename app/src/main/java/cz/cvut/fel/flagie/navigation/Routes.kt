@@ -15,6 +15,9 @@ data object StudyScreen
 @Serializable
 data object SettingScreen
 
+@Serializable
+data class CountryDetail(val name: String)
+
 data class NavBarItem(
     val route: Any,
     val label: String,

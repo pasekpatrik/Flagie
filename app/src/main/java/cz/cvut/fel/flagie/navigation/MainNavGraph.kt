@@ -10,12 +10,14 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.toRoute
 
 import cz.cvut.fel.flagie.ui.components.MainBottomBar
 import cz.cvut.fel.flagie.ui.screens.game.GameScreen
 import cz.cvut.fel.flagie.ui.screens.setting.SettingScreen
 import cz.cvut.fel.flagie.ui.screens.study.StudyScreen
 import cz.cvut.fel.flagie.ui.screens.user.UserScreen
+import cz.cvut.fel.flagie.ui.screens.country.CountryScreen
 
 @Composable
 fun MainNavGraph() {
@@ -46,7 +48,20 @@ fun MainNavGraph() {
         ) {
             composable<GameScreen> { GameScreen() }
             composable<UserScreen> { UserScreen() }
-            composable<StudyScreen> { StudyScreen() }
+            composable<StudyScreen> { StudyScreen(
+                onItemClick = {
+                    name -> navController.navigate(CountryDetail(name = name))
+                }
+            ) }
+
+            composable<CountryDetail> { backStackEntry ->
+                val detail: CountryDetail = backStackEntry.toRoute()
+
+                CountryScreen(
+                    name = detail.name,
+                    onBack = { navController.navigateUp() },
+                )
+            }
             composable<SettingScreen> { SettingScreen() }
         }
     }
