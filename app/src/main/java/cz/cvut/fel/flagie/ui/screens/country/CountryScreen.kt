@@ -1,10 +1,13 @@
 package cz.cvut.fel.flagie.ui.screens.country
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -17,9 +20,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import cz.cvut.fel.flagie.R
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import coil.compose.AsyncImage
 import cz.cvut.fel.flagie.data.model.Country
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -68,9 +73,19 @@ fun CountryScreen(
             } else {
                 val country: Country = viewModel.country[0]
 
-                Column {
-                    Text("Name: " + country.name.common)
+                Column (
+                    modifier = Modifier.padding(8.dp),
+                    verticalArrangement = Arrangement.spacedBy(8.dp)
+                ){
+                    AsyncImage(
+                        model = country.flags.png,
+                        contentDescription = country.flags.alt,
+                        modifier = Modifier
+
+                    )
                     country.capital?.get(0)?.let { Text("Capital city: $it") }
+                    Text("Population: " + country.population)
+                    Text("Region: " + country.region)
                 }
             }
         }
