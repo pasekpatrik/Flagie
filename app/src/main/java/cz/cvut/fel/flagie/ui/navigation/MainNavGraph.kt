@@ -3,6 +3,8 @@ package cz.cvut.fel.flagie.ui.navigation
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.*
 import androidx.navigation.NavGraph.Companion.findStartDestination
@@ -26,6 +28,8 @@ fun MainNavGraph(loginViewModel: LoginViewModel) {
     val backStackEntry by navController.currentBackStackEntryAsState()
     val currentDestination = backStackEntry?.destination
 
+    val users by loginViewModel.users.collectAsState()
+
     Scaffold(
         bottomBar = {
             if (currentDestination?.route != LoginScreen::class.qualifiedName) {
@@ -44,10 +48,12 @@ fun MainNavGraph(loginViewModel: LoginViewModel) {
             }
         }
     ) { innerPadding ->
+        val startDestination = if (users.isEmpty()) LoginScreen else StudyScreen
+
         NavHost(
             navController = navController,
             modifier = Modifier.padding(innerPadding),
-            startDestination = LoginScreen
+            startDestination = startDestination
         ) {
             composable<LoginScreen> {
                 LoginScreen(
@@ -61,7 +67,14 @@ fun MainNavGraph(loginViewModel: LoginViewModel) {
             }
 
             composable<GameScreen> { GameScreen() }
-            composable<UserScreen> { UserScreen(viewModel = loginViewModel) }
+            composable<UserScreen> { UserScreen(viewModel = loginViewModel, onDeleteSuccess = {
+                navController.navigate(LoginScreen) {
+                    popUpTo(navController.graph.id) {
+                        inclusive = true
+                    }
+                }
+            }) }
+
             composable<StudyScreen> { StudyScreen(
                 onItemClick = { name ->
                     navController.navigate(CountryDetail(name = name))

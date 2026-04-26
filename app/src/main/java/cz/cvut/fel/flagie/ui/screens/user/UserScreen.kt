@@ -1,7 +1,6 @@
 package cz.cvut.fel.flagie.ui.screens.user
 
 import androidx.compose.foundation.layout.*
-
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -11,15 +10,18 @@ import androidx.compose.ui.unit.dp
 import cz.cvut.fel.flagie.ui.screens.login.LoginViewModel
 
 @Composable
-fun UserScreen(viewModel: LoginViewModel) {
+fun UserScreen(
+    viewModel: LoginViewModel,
+    onDeleteSuccess: () -> Unit
+) {
     val users by viewModel.users.collectAsState()
-
     val currentUser = users.firstOrNull()
 
     var firstName by remember { mutableStateOf("") }
     var lastName by remember { mutableStateOf("") }
     var age by remember { mutableStateOf("") }
     var isEditing by remember { mutableStateOf(false) }
+
 
     LaunchedEffect(currentUser) {
         currentUser?.let {
@@ -43,7 +45,7 @@ fun UserScreen(viewModel: LoginViewModel) {
         )
 
         if (currentUser == null) {
-            Text("Not user found")
+            Text("No user found")
         } else {
             OutlinedTextField(
                 value = firstName,
@@ -75,7 +77,8 @@ fun UserScreen(viewModel: LoginViewModel) {
             Button(
                 onClick = {
                     if (isEditing) {
-                        viewModel.onLoginClicked(
+                        viewModel.updateUser(
+                            id = currentUser.id,
                             firstName = firstName,
                             lastName = lastName,
                             age = age.toIntOrNull() ?: 0
@@ -88,6 +91,21 @@ fun UserScreen(viewModel: LoginViewModel) {
                 modifier = Modifier.fillMaxWidth()
             ) {
                 Text(if (isEditing) "Save" else "Edit")
+            }
+
+            if (!isEditing) {
+                OutlinedButton(
+                    onClick = {
+                        viewModel.deleteUser(currentUser)
+                        onDeleteSuccess()
+                    },
+                    modifier = Modifier.fillMaxWidth(),
+                    colors = ButtonDefaults.outlinedButtonColors(
+                        contentColor = MaterialTheme.colorScheme.error
+                    )
+                ) {
+                    Text("Delete Account")
+                }
             }
 
             if (isEditing) {
