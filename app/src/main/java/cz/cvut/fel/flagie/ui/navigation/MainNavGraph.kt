@@ -1,4 +1,4 @@
-package cz.cvut.fel.flagie.navigation
+package cz.cvut.fel.flagie.ui.navigation
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
@@ -18,45 +18,58 @@ import cz.cvut.fel.flagie.ui.screens.setting.SettingScreen
 import cz.cvut.fel.flagie.ui.screens.study.StudyScreen
 import cz.cvut.fel.flagie.ui.screens.user.UserScreen
 import cz.cvut.fel.flagie.ui.screens.country.CountryScreen
+import cz.cvut.fel.flagie.ui.screens.login.*
 
 @Composable
-fun MainNavGraph() {
+fun MainNavGraph(loginViewModel: LoginViewModel) {
     val navController = rememberNavController()
     val backStackEntry by navController.currentBackStackEntryAsState()
     val currentDestination = backStackEntry?.destination
 
     Scaffold(
-       bottomBar = {
-           MainBottomBar(
-               currentDestination = currentDestination,
-               onNavigate = { route ->
-                   navController.navigate(route) {
-                       popUpTo(navController.graph.findStartDestination().id) {
-                           saveState = true
-                       }
-                       launchSingleTop = true
-                       restoreState = true
-                   }
-               }
-           )
-       }
+        bottomBar = {
+            if (currentDestination?.route != LoginScreen::class.qualifiedName) {
+                MainBottomBar(
+                    currentDestination = currentDestination,
+                    onNavigate = { route ->
+                        navController.navigate(route) {
+                            popUpTo(navController.graph.findStartDestination().id) {
+                                saveState = true
+                            }
+                            launchSingleTop = true
+                            restoreState = true
+                        }
+                    }
+                )
+            }
+        }
     ) { innerPadding ->
         NavHost(
             navController = navController,
             modifier = Modifier.padding(innerPadding),
-            startDestination = GameScreen
+            startDestination = LoginScreen
         ) {
+            composable<LoginScreen> {
+                LoginScreen(
+                    viewModel = loginViewModel,
+                    onLoginSuccess = {
+                        navController.navigate(StudyScreen) {
+                            popUpTo(LoginScreen) { inclusive = true }
+                        }
+                    }
+                )
+            }
+
             composable<GameScreen> { GameScreen() }
-            composable<UserScreen> { UserScreen() }
+            composable<UserScreen> { UserScreen(viewModel = loginViewModel) }
             composable<StudyScreen> { StudyScreen(
-                onItemClick = {
-                    name -> navController.navigate(CountryDetail(name = name))
+                onItemClick = { name ->
+                    navController.navigate(CountryDetail(name = name))
                 }
             ) }
 
             composable<CountryDetail> { backStackEntry ->
                 val detail: CountryDetail = backStackEntry.toRoute()
-
                 CountryScreen(
                     name = detail.name,
                     onBack = { navController.navigateUp() },

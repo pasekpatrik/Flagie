@@ -1,11 +1,17 @@
-package cz.cvut.fel.flagie.data.db
+package cz.cvut.fel.flagie.data.db.user
 
-import androidx.room.*
+import androidx.room.Dao
+import androidx.room.Delete
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
+import androidx.room.Query
+import androidx.room.Update
+import cz.cvut.fel.flagie.data.db.user.UserEntity
 import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface UserDao {
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = OnConflictStrategy.Companion.REPLACE)
     suspend fun insertUser(user: UserEntity)
 
     @Update

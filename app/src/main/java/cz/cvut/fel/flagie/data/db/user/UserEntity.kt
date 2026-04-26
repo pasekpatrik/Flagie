@@ -1,4 +1,4 @@
-package cz.cvut.fel.flagie.data.db
+package cz.cvut.fel.flagie.data.db.user
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

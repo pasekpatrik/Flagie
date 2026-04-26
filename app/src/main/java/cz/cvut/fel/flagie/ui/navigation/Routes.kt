@@ -1,4 +1,4 @@
-package cz.cvut.fel.flagie.navigation
+package cz.cvut.fel.flagie.ui.navigation
 
 import kotlinx.serialization.Serializable;
 import cz.cvut.fel.flagie.R
@@ -17,6 +17,9 @@ data object SettingScreen
 
 @Serializable
 data class CountryDetail(val name: String)
+
+@Serializable
+data object LoginScreen
 
 data class NavBarItem(
     val route: Any,

@@ -4,6 +4,8 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import cz.cvut.fel.flagie.data.db.user.UserDao
+import cz.cvut.fel.flagie.data.db.user.UserEntity
 
 @Database(entities = [UserEntity::class], version = 1, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
@@ -21,7 +23,7 @@ abstract class AppDatabase : RoomDatabase() {
                     AppDatabase::class.java,
                     "flagie_database"
                 )
-                    .fallbackToDestructiveMigration()
+                    // .fallbackToDestructiveMigration()
                     .build()
                 INSTANCE = instance
                 instance

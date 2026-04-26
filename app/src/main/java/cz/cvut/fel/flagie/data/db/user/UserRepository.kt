@@ -1,4 +1,4 @@
-package cz.cvut.fel.flagie.data.db
+package cz.cvut.fel.flagie.data.db.user
 
 import cz.cvut.fel.flagie.data.model.User
 import kotlinx.coroutines.flow.Flow

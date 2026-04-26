@@ -6,7 +6,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.navigation.NavDestination
 import androidx.navigation.NavDestination.Companion.hasRoute
 import androidx.navigation.NavDestination.Companion.hierarchy
-import cz.cvut.fel.flagie.navigation.*
+import cz.cvut.fel.flagie.ui.navigation.mainNavBarItems
 
 fun NavDestination?.isRoute(route: Any): Boolean =
     this?.hierarchy?.any { it.hasRoute(route::class) } == true

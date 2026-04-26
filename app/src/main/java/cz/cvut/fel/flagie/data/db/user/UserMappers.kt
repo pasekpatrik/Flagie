@@ -1,8 +1,7 @@
-package cz.cvut.fel.flagie.data.db
+package cz.cvut.fel.flagie.data.db.user
 
 import cz.cvut.fel.flagie.data.model.User
 
-// Převod z databáze do aplikace
 fun UserEntity.toDomain() = User(
     id = id,
     firstName = firstName,
@@ -10,7 +9,6 @@ fun UserEntity.toDomain() = User(
     age = age
 )
 
-// Převod z aplikace do databáze
 fun User.toEntity() = UserEntity(
     id = id,
     firstName = firstName,
