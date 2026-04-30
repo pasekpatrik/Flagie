@@ -4,13 +4,22 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
+import cz.cvut.fel.flagie.data.db.country.CountryEntity
+import cz.cvut.fel.flagie.data.db.country.CountryDao
 import cz.cvut.fel.flagie.data.db.user.UserDao
 import cz.cvut.fel.flagie.data.db.user.UserEntity
 
-@Database(entities = [UserEntity::class], version = 1, exportSchema = false)
+@Database(
+    entities = [UserEntity::class, CountryEntity::class],
+    version = 3,
+    exportSchema = false
+)
+@TypeConverters(Converters::class)
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun userDao(): UserDao
+    abstract fun countryDao(): CountryDao
 
     companion object {
         @Volatile
@@ -23,7 +32,7 @@ abstract class AppDatabase : RoomDatabase() {
                     AppDatabase::class.java,
                     "flagie_database"
                 )
-                    // .fallbackToDestructiveMigration()
+                    .fallbackToDestructiveMigration()
                     .build()
                 INSTANCE = instance
                 instance

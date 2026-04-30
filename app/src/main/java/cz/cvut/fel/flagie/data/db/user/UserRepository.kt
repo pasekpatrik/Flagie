@@ -1,5 +1,7 @@
 package cz.cvut.fel.flagie.data.db.user
 
+import cz.cvut.fel.flagie.data.db.user.mapper.toDomain
+import cz.cvut.fel.flagie.data.db.user.mapper.toEntity
 import cz.cvut.fel.flagie.data.model.User
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map

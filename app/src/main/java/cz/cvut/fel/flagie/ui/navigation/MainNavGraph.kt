@@ -21,9 +21,10 @@ import cz.cvut.fel.flagie.ui.screens.study.StudyScreen
 import cz.cvut.fel.flagie.ui.screens.user.UserScreen
 import cz.cvut.fel.flagie.ui.screens.country.CountryScreen
 import cz.cvut.fel.flagie.ui.screens.login.*
+import cz.cvut.fel.flagie.ui.screens.study.StudyViewModel
 
 @Composable
-fun MainNavGraph(loginViewModel: LoginViewModel) {
+fun MainNavGraph(loginViewModel: LoginViewModel, studyViewModel: StudyViewModel) {
     val navController = rememberNavController()
     val backStackEntry by navController.currentBackStackEntryAsState()
     val currentDestination = backStackEntry?.destination
@@ -78,7 +79,8 @@ fun MainNavGraph(loginViewModel: LoginViewModel) {
             composable<StudyScreen> { StudyScreen(
                 onItemClick = { name ->
                     navController.navigate(CountryDetail(name = name))
-                }
+                },
+                viewModel = studyViewModel
             ) }
 
             composable<CountryDetail> { backStackEntry ->

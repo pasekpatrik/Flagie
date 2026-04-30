@@ -1,5 +1,6 @@
-package cz.cvut.fel.flagie.data.db.user
+package cz.cvut.fel.flagie.data.db.user.mapper
 
+import cz.cvut.fel.flagie.data.db.user.UserEntity
 import cz.cvut.fel.flagie.data.model.User
 
 fun UserEntity.toDomain() = User(

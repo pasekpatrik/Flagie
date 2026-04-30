@@ -31,6 +31,8 @@ class LoginViewModel(private val userRepository: UserRepository) : ViewModel() {
         }
     }
 
+
+    // Todo - změna do viewModelu UserViewModel
     fun updateUser(id: Long, firstName: String, lastName: String, age: Int) {
         viewModelScope.launch {
             val updatedUser = User(

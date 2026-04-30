@@ -12,6 +12,9 @@ import cz.cvut.fel.flagie.data.db.user.UserRepository
 import cz.cvut.fel.flagie.ui.navigation.MainNavGraph
 import cz.cvut.fel.flagie.ui.theme.FlagieTheme
 import cz.cvut.fel.flagie.ui.screens.login.LoginViewModel
+import cz.cvut.fel.flagie.data.db.country.CountryRepository
+import cz.cvut.fel.flagie.ui.screens.study.StudyViewModel
+import cz.cvut.fel.flagie.data.api.CountriesApi
 
 class MainActivity : ComponentActivity() {
 
@@ -23,6 +26,8 @@ class MainActivity : ComponentActivity() {
 
         val userRepository by lazy { UserRepository(database.userDao()) }
 
+        val countryRepository by lazy { CountryRepository(database.countryDao(), CountriesApi()) }
+
         val loginViewModel: LoginViewModel by viewModels {
             object : ViewModelProvider.Factory {
                 override fun <T : ViewModel> create(modelClass: Class<T>): T {
@@ -32,9 +37,18 @@ class MainActivity : ComponentActivity() {
             }
         }
 
+        val studyViewModel: StudyViewModel by viewModels {
+            object : ViewModelProvider.Factory {
+                override fun <T : ViewModel> create(modelClass: Class<T>): T {
+                    @Suppress("UNCHECKED_CAST")
+                    return StudyViewModel(countryRepository) as T
+                }
+            }
+        }
+
         setContent {
             FlagieTheme {
-                MainNavGraph(loginViewModel = loginViewModel)
+                MainNavGraph(loginViewModel = loginViewModel, studyViewModel = studyViewModel)
             }
         }
     }
