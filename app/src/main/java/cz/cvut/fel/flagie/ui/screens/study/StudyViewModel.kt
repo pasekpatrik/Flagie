@@ -35,7 +35,6 @@ class StudyViewModel(
 
     fun fetchCountries() {
         viewModelScope.launch {
-            // Pokud již máme data a nenačítáme, nechceme spouštět zbytečně síťový požadavek
             if (countries.isNotEmpty()) return@launch
 
             isLoading = true

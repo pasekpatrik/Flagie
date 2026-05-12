@@ -68,6 +68,7 @@ fun MainNavGraph(loginViewModel: LoginViewModel, studyViewModel: StudyViewModel)
             }
 
             composable<GameScreen> { GameScreen() }
+
             composable<UserScreen> { UserScreen(viewModel = loginViewModel, onDeleteSuccess = {
                 navController.navigate(LoginScreen) {
                     popUpTo(navController.graph.id) {
