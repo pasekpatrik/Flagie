@@ -3,7 +3,6 @@ package cz.cvut.fel.flagie.ui.navigation
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.*
@@ -21,10 +20,11 @@ import cz.cvut.fel.flagie.ui.screens.study.StudyScreen
 import cz.cvut.fel.flagie.ui.screens.user.UserScreen
 import cz.cvut.fel.flagie.ui.screens.country.CountryScreen
 import cz.cvut.fel.flagie.ui.screens.login.*
+import cz.cvut.fel.flagie.ui.screens.setting.SettingViewModel
 import cz.cvut.fel.flagie.ui.screens.study.StudyViewModel
 
 @Composable
-fun MainNavGraph(loginViewModel: LoginViewModel, studyViewModel: StudyViewModel) {
+fun MainNavGraph(loginViewModel: LoginViewModel, studyViewModel: StudyViewModel, settingViewModel: SettingViewModel) {
     val navController = rememberNavController()
     val backStackEntry by navController.currentBackStackEntryAsState()
     val currentDestination = backStackEntry?.destination
@@ -91,7 +91,7 @@ fun MainNavGraph(loginViewModel: LoginViewModel, studyViewModel: StudyViewModel)
                     onBack = { navController.navigateUp() },
                 )
             }
-            composable<SettingScreen> { SettingScreen() }
+            composable<SettingScreen> { SettingScreen(viewModel = settingViewModel) }
         }
     }
 }

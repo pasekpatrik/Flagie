@@ -25,7 +25,6 @@ class Converters {
         }
     }
 
-    // --- CountryFlags převodníky ---
     @TypeConverter
     fun fromCountryFlags(value: CountryFlags?): String? {
         return value?.let { gson.toJson(it) }
@@ -42,7 +41,6 @@ class Converters {
         }
     }
 
-    // --- Seznam řetězců (List<String>) ---
     @TypeConverter
     fun fromStringList(value: List<String>?): String? {
         return value?.let { gson.toJson(it) }
